@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+
+
+double random(double min, double max) {
+    return min + (rand() / (RAND_MAX + 1.0)) * (max - min);
+}
+
+int main() {
+    
+    srand(time(0));
+
+    int totalPoints = 0;
+
+    for (int i = 1; i <= 5; ++i) {
+    
+        double xi, yi;
+        std::cout << "Введите координаты для выстрела " << i << " (xi yi): ";
+        std::cin >> xi >> yi;
+
+        xi += random(-5, 5);
+        yi += random(-5, 5);
+
+        double distance = sqrt(static_cast<double>(xi * xi + yi * yi));
+
+        int points = (distance < 1) ? 5 :
+                     (distance < 2) ? 4 :
+                     (distance < 3) ? 3 :
+                     (distance < 4) ? 2 :
+                     (distance < 5) ? 1 : 0;
+
+        totalPoints += points;
+    }
+
+    std::cout << "Сумма баллов: " << totalPoints << std::endl;
+
+    if (totalPoints < 10) {
+        std::cout << "Лузер!" << std::endl;
+    }
+
+    return 0;
+}
+
